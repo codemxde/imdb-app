@@ -4,7 +4,7 @@ import logo from "../assets/imdb-logo.png";
 
 export default function Navbar() {
   return (
-    <nav className="py-3 rounded-lg bg-black border-y-2 border-blue-700">
+    <nav className="fixed w-full top-0 z-50 py-3 rounded-lg bg-black border-y-2 border-blue-700">
       <ul className="flex justify-around sm:px-28 md:px-32 lg:px-40 xl:px-52 ">
         <li className="flex justify-center items-center">
           <Link to="/">
@@ -12,12 +12,12 @@ export default function Navbar() {
           </Link>
         </li>
         <li className="flex justify-center items-center hover:underline rounded-lg p-3">
-          <Link className="font-bold text-white text-xl" to="/">
+          <Link className="font-bold text-white text-2xl" to="/">
             Home
           </Link>
         </li>
         <li className="flex justify-center items-center hover:underline rounded-lg p-3">
-          <Link className="font-bold text-white text-xl" to="/watchlist">
+          <Link className="font-bold text-white text-2xl" to="/watchlist">
             Wachlist
           </Link>
         </li>

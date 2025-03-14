@@ -4,19 +4,20 @@ import axios from "axios";
 import Movies from "./Movies";
 import Pagination from "./Pagination";
 
+import { moviesUri, token } from "../../env";
+
 export default function DailyMovies() {
   const [pageNo, setPageNo] = useState(1);
   const [movies, setMovies] = useState([]);
   const [watchlist, setWatchlist] = useState([]);
 
   useEffect(() => {
-    const url = `https://api.themoviedb.org/3/trending/movie/day?language=en-US&page=${pageNo}`;
+    const url = `${moviesUri}${pageNo}`;
     axios
       .get(url, {
         headers: {
           "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MDIyZWU1NWJkNWEzMWFkZTM1YWNlNzBmZjkyMDIzNSIsIm5iZiI6MTc0MTQ5OTI2Ny4wMTksInN1YiI6IjY3Y2QyYjgzNTlhZTAzZWZlMzJhNjVhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.hLBenLrLG4KoZBBdxnjw2itzMUudCJY2jvpHxhRaK54",
+          Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
