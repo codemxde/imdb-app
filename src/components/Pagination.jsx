@@ -1,4 +1,13 @@
-export default function Pagination({ pageNo, nextPage, previousPage }) {
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "../redux/paginationSlice";
+
+export default function Pagination({}) {
+  const dispatch = useDispatch();
+  const { pageNo } = useSelector((state) => state.pagination);
+
+  const previousPage = () => dispatch(decrement());
+  const nextPage = () => dispatch(increment());
+
   return (
     <div className="w-full sticky bottom-0 flex justify-between items-center px-5">
       {pageNo > 1 ? (

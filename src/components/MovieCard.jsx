@@ -1,7 +1,15 @@
+import { useSelector } from "react-redux";
+
 import { imageUri } from "../../env";
 
-export default function MovieCard({ movie, watchlist, add, remove }) {
-  const { backdrop_path, original_title } = movie;
+import { addToWatchlist, removeFromWatchlist } from "../redux/watchlistSlice";
+
+import { useDispatch } from "react-redux";
+
+export default function MovieCard({ movie }) {
+  const { watchlist } = useSelector((state) => state.watchlist);
+  const dispatch = useDispatch();
+  const { backdrop_path, title } = movie;
   const movieUrl = `${imageUri}${backdrop_path}`;
 
   const movieInWatchlist = watchlist.filter((movieInList) => movieInList.id === movie.id);
@@ -13,19 +21,19 @@ export default function MovieCard({ movie, watchlist, add, remove }) {
       style={{ backgroundImage: `url(${movieUrl})` }}
     >
       <p className="absolute text-white bg-gray-900/70 top-0 w-full md:text-xl lg:text-2xl xl:text-2xl text-center py-[2%] ">
-        {original_title}
+        {title}
       </p>
       {isMovieInWatchist ? (
         <i
           onClick={() => {
-            remove(movie);
+            dispatch(removeFromWatchlist(movie));
           }}
           className="fa-solid fa-xmark absolute text-white text-3xl p-3 right-0 bottom-0 hover:text-red-400 hover:cursor-pointer"
         ></i>
       ) : (
         <i
           onClick={() => {
-            add(movie);
+            dispatch(addToWatchlist(movie));
           }}
           className="fa-solid fa-plus absolute text-white text-3xl p-3 right-0 bottom-0 hover:text-red-400 hover:cursor-pointer"
         ></i>

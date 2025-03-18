@@ -1,7 +1,13 @@
 import { imageUri } from "../../env";
+import genreids from "../constants/genres";
 
-export default function WatchlistRow({ movie, remove }) {
-  const { backdrop_path, original_title, vote_average, popularity } = movie;
+import { removeFromWatchlist } from "../redux/watchlistSlice";
+import { useDispatch } from "react-redux";
+
+export default function WatchlistRow({ movie }) {
+  const dispatch = useDispatch();
+  const { backdrop_path, title, vote_average, popularity, genre_ids } = movie;
+  const genre = genreids[genre_ids[0]];
   const movieUrl = `${imageUri}${backdrop_path}`;
   return (
     <div className="contents">
@@ -14,13 +20,13 @@ export default function WatchlistRow({ movie, remove }) {
             <i
               className="fa-solid fa-xmark text-4xl p-3 hover:text-red-400 hover:cursor-pointer"
               onClick={() => {
-                remove(movie);
+                dispatch(removeFromWatchlist(movie));
               }}
             ></i>
           </div>
         </div>
         <p className="text-lg absolute text-center  bg-slate-900/70 w-[100%] p-3 top-0 xl:relative xl:left-0">
-          {original_title}
+          {title}
         </p>
       </div>
 
@@ -33,7 +39,7 @@ export default function WatchlistRow({ movie, remove }) {
       </div>
 
       <div className="flex justify-center items-center">
-        <p className="text-lg text-lime-300 font-semibold">Action</p>
+        <p className="text-lg text-lime-300 font-semibold">{genre}</p>
       </div>
     </div>
   );
